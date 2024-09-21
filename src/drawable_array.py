@@ -23,7 +23,6 @@ class Drawable_Array:
                 random.shuffle(numbers)
                 for i in range(size):
                     self.array.append(numbers[i])
-        print("Generated: ", self.array)
         self.max_val = max(self.array)
     
     def draw_array(self, color="cyan", display_numbers=False):
@@ -87,7 +86,8 @@ class Drawable_Array:
             self.array[j + 1] = key # The position where the key needs to be inserted was found
             self.draw_indexes(j + 1, color="SpringGreen2", display_numbers=True)
 
-    def merge_sort(self, left, right):
+    def merge_sort(self, left=0, right=None):
+        if right == None: right=len(self.array)-1
         def merge(left, mid, right):
             n1 = mid - left + 1
             n2 = right - mid
@@ -137,7 +137,8 @@ class Drawable_Array:
 
 
     # The QuickSort function implementation
-    def quick_sort(self, low, high):
+    def quick_sort(self, low=0, high=None):
+        if high == None: high = len(self.array)-1
         def partition(low, high):
             # Choose the pivot
             pivot = self.array[high]
@@ -178,12 +179,9 @@ class Drawable_Array:
         top_border = height - 20
         steps = int(top_border/self.max_val)
 
-        print("Indexes ", args)
         for arg in args:
             x = thickness/2 + (arg * thickness)
             y = height - (self.array[arg]*steps)
-
-            print(f"The x,y coords for {arg} are ({x},{y})")
 
             self.win.canvas.create_line(x, height, x, 0, fill=self.win.background_color, width=thickness)
             self.win.canvas.create_line(x, height, x, y, fill=color, width=thickness)
@@ -193,6 +191,7 @@ class Drawable_Array:
     
     def animate(self):
         self.win.redraw()
-        time.sleep(0.05)
+        self.win.root.after(50)
+
 
 
